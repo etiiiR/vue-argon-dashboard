@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Login from "./views/Login.vue";
-import Register from "./views/Register.vue";
-import Profile from "./views/Profile.vue";
+import Login from "./router_views/Login.vue";
+import Register from "./router_views/Register.vue";
+import Profile from "./router_views/Profile.vue";
 import Home from "./router_views/Home.vue";
 import Probe from "./router_views/Probe.vue";
 

@@ -108,9 +108,11 @@
             </a>
             </router-link>
           <li class="nav-item">
-            <a class="nav-link" href="../examples/maps.html">
-              <i class="ni ni-pin-3 text-orange"></i> Maps
+            <router-link to="/login">
+            <a class="nav-link">
+              <i class="ni ni-tv-2 text-primary"></i>{{ sideboard.first }} 
             </a>
+            </router-link>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../examples/profile.html">
