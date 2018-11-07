@@ -2,12 +2,17 @@
     <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
       <!-- Toggler -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
+      <button @click="collapsee" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0" href="../index.html">
-        <img src="../assets/img/brand/blue.png" class="navbar-brand-img" alt="...">
+      <a class="navbar-brand pt-0">
+        <img v-bind:src="ui.logo" class="navbar-brand-img" alt="">
+      </a>
+      <a id="alit">
+        <button @click.prevent="lit" id="lit" class="btn btn-outline-secondary btn-lg btn-block" type="button">
+                <span class="btn-inner--icon"><i :class="[bttn ? 'ni ni-bold-left' : 'ni ni-bold-right']"  class=""></i></span>
+        </button>
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -59,17 +64,17 @@
         </li>
       </ul>
       <!-- Collapse -->
-      <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+      <div v-bind:class="{ show: shows }" class="collapse navbar-collapse" id="sidenav-collapse-main">
         <!-- Collapse header -->
         <div class="navbar-collapse-header d-md-none">
           <div class="row">
             <div class="col-6 collapse-brand">
-              <a href="../index.html">
-                <img src="../assets/img/brand/blue.png">
+              <a href="">
+                <img src="../assets/img/brand/logo-coop.png">
               </a>
             </div>
             <div class="col-6 collapse-close">
-              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+              <button @click="closenav" type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
                 <span></span>
                 <span></span>
               </button>
@@ -90,15 +95,18 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item">
+            <router-link to="/">
             <a class="nav-link">
-              <i class="ni ni-tv-2 text-primary"></i><router-link to="/">Dashboard</router-link>
+              <i class="ni ni-tv-2 text-primary"></i>{{ sideboard.first }} 
             </a>
+            </router-link>
           </li>
           <li class="nav-item">
+            <router-link to="/probe">
             <a class="nav-link">
-              <i class="ni ni-planet text-blue"></i><router-link to="/probe/">Wartung</router-link>
+              <i class="ni ni-planet text-blue"></i>Wartung
             </a>
-          </li>
+            </router-link>
           <li class="nav-item">
             <a class="nav-link" href="../examples/maps.html">
               <i class="ni ni-pin-3 text-orange"></i> Maps
@@ -128,7 +136,7 @@
         <!-- Divider -->
         <hr class="my-3">
         <!-- Heading -->
-        <h6 class="navbar-heading text-muted">Documentation</h6>
+        <h6 id="docu" class="navbar-heading text-muted">Documentation</h6>
         <!-- Navigation -->
         <ul class="navbar-nav mb-md-3">
           <li class="nav-item">
@@ -151,3 +159,85 @@
     </div>
   </nav>
 </template>
+
+<style lang="scss">
+:root {
+  --margin-width: 60px;
+  --display: none;
+}
+#alit {
+  margin-left: -40px;
+}
+#lit {
+  float: right;
+  margin-right: -22px;
+}
+@media (min-width: 768px) {
+  .navbar-vertical.navbar-expand-md.fixed-left {
+    width: var(--margin-width);
+    overflow: hidden;
+  }
+
+  #docu {
+    display: var(--display);
+  }
+
+  .navbar-vertical.navbar-expand-md.fixed-left + .main-content {
+    margin-left: var(--margin-width) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  #lit {
+    display: none;
+  }
+}
+</style>
+
+
+<script>
+export default {
+  data: () => {
+    return {
+      bttn: false,
+      bttn_right: "false",
+      shows: "",
+      docu: "none",
+      navbarlit: false,
+      marginleft: "250px",
+      widthsidebar: "60px",
+      ui: {
+        logo: "/img/logo-coop.d5ac4642.png"
+      },
+      sideboard: {
+        first: "Dashboard"
+      }
+    };
+  },
+  methods: {
+    lit() {
+      this.navbarlit = !this.navbarlit;
+      if (this.navbarlit == 1) {
+        this.marginleft = "250px";
+        this.docu = true;
+        this.bttn = true;
+      } else {
+        this.marginleft = "60px";
+        this.docu = "none";
+        this.bttn = false;
+      }
+      document.documentElement.style.setProperty(
+        "--margin-width",
+        this.marginleft
+      );
+      document.documentElement.style.setProperty("--display", this.docu);
+    },
+    collapsee() {
+      this.shows = "true";
+    },
+    closenav() {
+      this.shows = "";
+    }
+  }
+};
+</script>
