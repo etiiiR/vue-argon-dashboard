@@ -6,7 +6,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0">
+      <a style="margin-right: 30px;" class="navbar-brand pt-0">{{ Logotext }}
         <img v-bind:src="ui.logo" class="navbar-brand-img" alt="">
       </a>
       <a id="alit">
@@ -199,6 +199,7 @@
 export default {
   data: () => {
     return {
+      Logotext: "C",
       bttn: false,
       bttn_right: "false",
       shows: "",
@@ -218,12 +219,14 @@ export default {
     lit() {
       this.navbarlit = !this.navbarlit;
       if (this.navbarlit == 1) {
+        this.Logotext = "";
         this.marginleft = "250px";
         this.docu = true;
         this.bttn = true;
       } else {
         this.marginleft = "60px";
         this.docu = "none";
+        this.Logotext = "C   ";
         this.bttn = false;
       }
       document.documentElement.style.setProperty(
